@@ -26,10 +26,10 @@ services:
           - node.role == manager
       labels:
         - traefik.enable=true
-        - traefik.http.routers.mcp_evolution.rule=Host(`api.acerola.cloud`)
+        - traefik.http.routers.mcp_evolution.rule=Host(`mcp-evolution.acerola.cloud`)
         - traefik.http.routers.mcp_evolution.entrypoints=websecure
         - traefik.http.routers.mcp_evolution.tls.certresolver=letsencryptresolver
-        - traefik.http.services.mcp_evolution.loadbalancer.server.port=3000
+        - traefik.http.services.mcp_evolution.loadbalancer.server.port=3003
         - traefik.http.services.mcp_evolution.loadbalancer.passHostHeader=true
 
 networks:
