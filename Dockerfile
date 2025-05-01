@@ -16,8 +16,5 @@ COPY .env.example .env
 # 4) definir variáveis de ambiente
 ENV NODE_ENV=production
 
-# 5) expor porta (WebSocket / HTTP)
-EXPOSE 3000
-
 # 6) comando de inicialização
 CMD ["node", "dist/index.js"]
