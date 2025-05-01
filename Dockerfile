@@ -2,19 +2,22 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copiar arquivos de dependências
+# 1) instalar as dependências de produção
 COPY package*.json ./
 RUN npm ci --only=production
 
-# Copiar arquivos de código compilado
+# 2) copiar o código compilado
 COPY dist ./dist
-COPY .env.example ./.env.example
 
-# Definir variáveis de ambiente padrão
+# 3) copiar e renomear o template de .env
+#    agora, dentro do container, haverá um arquivo .env idêntico ao example
+COPY .env.example .env
+
+# 4) definir variáveis de ambiente
 ENV NODE_ENV=production
 
-# Expor a porta para WebSocket (opcional, usada se WebSocket estiver habilitado)
+# 5) expor porta (WebSocket / HTTP)
 EXPOSE 3000
 
-# Comando para iniciar o servidor
-CMD ["node", "dist/index.js"] 
+# 6) comando de inicialização
+CMD ["node", "dist/index.js"]
