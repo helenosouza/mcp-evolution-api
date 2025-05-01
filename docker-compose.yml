@@ -7,10 +7,17 @@ services:
       context: .
       dockerfile: Dockerfile
     image: mcp_evolution:latest
-    env_file:
-      - .env
+
+    # variáveis de ambiente declaradas diretamente
+    environment:
+      EVOLUTION_API_URL:   ""   #seu_host
+      EVOLUTION_API_KEY:   ""    # ex: "d43481aa8ab6e96298f9acefd6809c9a"
+      EVOLUTION_API_INSTANCE: "" # ex: "instance_01"
+      ENABLE_WEBSOCKET:    ""    # ex: "true" ou "false"
+
     networks:
       - AcerolaNet
+
     deploy:
       mode: replicated
       replicas: 1
@@ -19,10 +26,10 @@ services:
           - node.role == manager
       labels:
         - traefik.enable=true
-        - traefik.http.routers.mcp_evolution.rule=Host(`mcp-evolution.acerola.cloud`)
+        - traefik.http.routers.mcp_evolution.rule=Host(`api.acerola.cloud`)
         - traefik.http.routers.mcp_evolution.entrypoints=websecure
         - traefik.http.routers.mcp_evolution.tls.certresolver=letsencryptresolver
-        - traefik.http.services.mcp_evolution.loadbalancer.server.port=3001
+        - traefik.http.services.mcp_evolution.loadbalancer.server.port=3000
         - traefik.http.services.mcp_evolution.loadbalancer.passHostHeader=true
 
 networks:
